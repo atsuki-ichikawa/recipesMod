@@ -1,0 +1,337 @@
+.desktop {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center
+}
+
+.desktop,
+.desktop .div {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255/var(--tw-bg-opacity))
+}
+
+.desktop .div {
+    position: relative;
+    height: 84.94rem;
+    width: 90rem;
+    overflow-x: hidden
+}
+
+.desktop .overlap {
+    position: absolute;
+    top: 3.94rem;
+    left: 7.69rem;
+    height: 5rem;
+    width: 74.63rem;
+    border-radius: 9999px
+}
+
+.desktop .text-wrapper {
+    left: 62.44rem
+}
+
+.desktop .text-wrapper,
+.desktop .text-wrapper-2 {
+    position: absolute;
+    top: 1.31rem;
+    height: 2.25rem;
+    white-space: nowrap;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 500;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-2 {
+    left: 32.94rem
+}
+
+.desktop .text-wrapper-3 {
+    position: absolute;
+    top: 1.31rem;
+    left: 6.5rem;
+    height: 2.25rem;
+    white-space: nowrap;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 500;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(245 245 245/var(--tw-text-opacity))
+}
+
+.desktop .group {
+    position: absolute;
+    top: 66.94rem;
+    left: 0;
+    height: 18rem;
+    width: 90.25rem
+}
+
+.desktop .overlap-group {
+    position: relative;
+    height: 18rem;
+    width: 90rem;
+    background-color: #f2841e4c
+}
+
+.desktop .text-wrapper-4 {
+    position: absolute;
+    top: 2.88rem;
+    left: 35rem;
+    height: 2rem;
+    white-space: nowrap;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.88rem;
+    --tw-text-opacity: 1;
+    color: rgb(248 7 7/var(--tw-text-opacity))
+}
+
+.desktop .group-2 {
+    position: absolute;
+    top: 6.75rem;
+    left: 29.94rem;
+    height: 1.25rem;
+    width: 32rem
+}
+
+.desktop .text-wrapper-5 {
+    left: 0
+}
+
+.desktop .text-wrapper-5,
+.desktop .text-wrapper-6 {
+    position: absolute;
+    top: 0;
+    height: 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-6 {
+    left: 4.81rem
+}
+
+.desktop .RECIPE-LIST {
+    position: absolute;
+    top: 0;
+    left: 10.13rem;
+    height: 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-7 {
+    left: 18.5rem
+}
+
+.desktop .text-wrapper-7,
+.desktop .text-wrapper-8 {
+    position: absolute;
+    top: .06rem;
+    height: 1rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-8 {
+    left: 25.88rem
+}
+
+.desktop .ellipse {
+    left: 39.44rem
+}
+
+.desktop .ellipse,
+.desktop .ellipse-2 {
+    position: absolute;
+    top: 10.56rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 1rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(119 119 119/var(--tw-bg-opacity))
+}
+
+.desktop .ellipse-2 {
+    left: 43.75rem
+}
+
+.desktop .ellipse-3 {
+    left: 48.06rem;
+    top: 10.56rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 1rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(119 119 119/var(--tw-bg-opacity))
+}
+
+.desktop .ellipse-3,
+.desktop .p {
+    position: absolute
+}
+
+.desktop .p {
+    top: 16.19rem;
+    left: 39.13rem;
+    height: .875rem;
+    font-size: .75rem;
+    line-height: 1rem;
+    font-weight: 400;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .overlap-2 {
+    top: 24.38rem
+}
+
+.desktop .overlap-2,
+.desktop .overlap-wrapper {
+    position: absolute;
+    left: 0;
+    height: 33.38rem;
+    width: 89.75rem
+}
+
+.desktop .overlap-wrapper {
+    top: 0
+}
+
+.desktop .overlap-3 {
+    position: relative;
+    top: -.56rem;
+    left: -.56rem;
+    height: 34.63rem;
+    width: 91rem;
+    background-image: url(img/rectangle-21.svg)
+}
+
+.desktop .icon-add {
+    position: absolute;
+    top: 9.5rem;
+    left: 40.56rem;
+    height: 10rem;
+    width: 10rem
+}
+
+.desktop .arcticons-recipe {
+    height: 10rem;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255/var(--tw-bg-opacity))
+}
+
+.desktop .vector-wrapper {
+    position: relative;
+    top: 1.56rem;
+    left: 1.13rem;
+    height: 7rem;
+    width: 8rem;
+    background-image: url(img/group.png)
+}
+
+.desktop .vector {
+    position: absolute;
+    top: 1.56rem;
+    left: 5.06rem;
+    height: .625rem;
+    width: .5rem
+}
+
+.desktop .icon-list {
+    left: 15.5rem;
+    background-color: rgb(242 132 31/var(--tw-bg-opacity));
+    background-image: url(img/arcticons-reciper.svg)
+}
+
+.desktop .icon-account,
+.desktop .icon-list {
+    position: absolute;
+    top: 9.63rem;
+    height: 10rem;
+    width: 10rem;
+    border-radius: 1rem;
+    --tw-bg-opacity: 1
+}
+
+.desktop .icon-account {
+    left: 65.75rem;
+    background-color: rgb(242 132 30/var(--tw-bg-opacity));
+    background-image: url(img/mdi-account.svg)
+}
+
+.desktop .text-wrapper-9 {
+    top: 21.63rem;
+    left: 11.88rem;
+    height: 7rem;
+    width: 16rem
+}
+
+.desktop .text-wrapper-10,
+.desktop .text-wrapper-9 {
+    position: absolute;
+    text-align: center;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 400;
+    line-height: normal;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-10 {
+    top: 22.38rem;
+    left: 38.63rem;
+    height: 6rem;
+    width: 13rem
+}
+
+.desktop .text-wrapper-11 {
+    top: 21.81rem;
+    left: 61.69rem;
+    height: 7rem;
+    width: 16rem;
+    text-align: center;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    line-height: normal;
+    color: rgb(0 0 0/var(--tw-text-opacity))
+}
+
+.desktop .text-wrapper-11,
+.desktop .text-wrapper-12 {
+    position: absolute;
+    font-weight: 400;
+    --tw-text-opacity: 1
+}
+
+.desktop .text-wrapper-12 {
+    top: 12.31rem;
+    left: 1.94rem;
+    height: 8rem;
+    width: 83.44rem;
+    font-size: 4.5rem;
+    line-height: 1;
+    line-height: normal;
+    color: rgb(50 1 227/var(--tw-text-opacity))
+}

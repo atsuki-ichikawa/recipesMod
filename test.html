@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>1&period; MariaDB&#x3078;&#x306e;&#x63a5;&#x7d9a;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <p>以下は、データベースを作成し、設定するための手順である。</p>
+<h3 id="1-mariadbへの接続">1. MariaDBへの接続</h3>
+<p>ターミナルを開き、以下のコマンドを実行してMariaDBに接続する。パスワードを求められたら入力する。</p>
+<pre><code class="language-bash">mysql -u root -p
+</code></pre>
+<h3 id="2-データベースの作成">2. データベースの作成</h3>
+<p>接続が成功したら、以下のコマンドを実行してデータベースを作成する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> DATABASE sampledb <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8 <span class="hljs-keyword">COLLATE</span> utf8_general_ci;
+</code></pre>
+<h3 id="3-ユーザーの作成と権限の付与">3. ユーザーの作成と権限の付与</h3>
+<p>データベースにアクセスするためのユーザーを作成し、そのユーザーに適切な権限を付与する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;sample&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;password&#x27;</span>;
+<span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVILEGES <span class="hljs-keyword">ON</span> sampledb.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;sample&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;
+FLUSH PRIVILEGES;
+</code></pre>
+<h3 id="4-設定ファイルの確認と変更">4. 設定ファイルの確認と変更</h3>
+<p>XAMPPの設定ファイル（<code>php.ini</code>や<code>my.cnf</code>）を必要に応じて確認し、MariaDBが正しく動作するように設定する。通常、デフォルトの設定で問題ないが、<code>my.cnf</code>ファイルで<code>character-set-server</code>が<code>utf8</code>に設定されていることを確認する。</p>
+<h3 id="phpでの接続情報の設定">PHPでの接続情報の設定</h3>
+<p>次に、PHPファイルでデータベース接続設定を行う。以下は、設定情報を定義するPHPコードの例である。</p>
+<pre><code class="language-php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_USER&quot;</span>, <span class="hljs-string">&quot;sample&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_PASS&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_HOST&quot;</span>, <span class="hljs-string">&quot;localhost&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_NAME&quot;</span>, <span class="hljs-string">&quot;sampledb&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_TYPE&quot;</span>, <span class="hljs-string">&quot;mysql&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DSN&quot;</span>, _DB_TYPE . <span class="hljs-string">&quot;:host=&quot;</span> . _DB_HOST . <span class="hljs-string">&quot;;dbname=&quot;</span> . _DB_NAME. <span class="hljs-string">&quot;;charset=utf8&quot;</span>);
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(_DSN, _DB_USER, _DB_PASS);
+    <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">setAttribute</span>(PDO::<span class="hljs-variable constant_">ATTR_ERRMODE</span>, PDO::<span class="hljs-variable constant_">ERRMODE_EXCEPTION</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;データベースに接続成功&quot;</span>;
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;データベース接続失敗: &quot;</span> . <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();
+}
+<span class="hljs-meta">?&gt;</span>
+</code></pre>
+<p>このコードをPHPファイルに保存し、ブラウザからアクセスしてデータベース接続が成功することを確認する。</p>
+<p>以下に、レシピを管理するためのテーブルを作成するSQLスクリプトと、データベース操作のためのPHPクラスの例を示す。</p>
+<h3 id="テーブル作成のsqlスクリプト">テーブル作成のSQLスクリプト</h3>
+<p>ターミナルでMariaDBに接続した状態で、以下のコマンドを実行することで、<code>recipes</code>テーブルを作成する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> recipes (
+    id <span class="hljs-type">INT</span> AUTO_INCREMENT <span class="hljs-keyword">PRIMARY</span> KEY,
+    title <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    ingredients TEXT <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    instructions TEXT <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    created_at <span class="hljs-type">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>
+);
+</code></pre>
+<h3 id="phpクラスの例">PHPクラスの例</h3>
+<p>以下に、指定された操作を行うためのPHPクラスの例を示す。</p>
+<pre><code class="language-php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RecipeManager</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-variable">$pdo</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$pass</span></span>) </span>{
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable language_">$this</span>-&gt;pdo = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$pass</span>);
+            <span class="hljs-variable language_">$this</span>-&gt;pdo-&gt;<span class="hljs-title function_ invoke__">setAttribute</span>(PDO::<span class="hljs-variable constant_">ATTR_ERRMODE</span>, PDO::<span class="hljs-variable constant_">ERRMODE_EXCEPTION</span>);
+        } <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+            <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;データベース接続失敗: &quot;</span> . <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAllRecipes</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-variable">$stmt</span> = <span class="hljs-variable language_">$this</span>-&gt;pdo-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM recipes&quot;</span>);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">fetchAll</span>(PDO::<span class="hljs-variable constant_">FETCH_ASSOC</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getRecipeById</span>(<span class="hljs-params"><span class="hljs-variable">$id</span></span>) </span>{
+        <span class="hljs-variable">$stmt</span> = <span class="hljs-variable language_">$this</span>-&gt;pdo-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM recipes WHERE id = :id&quot;</span>);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bindParam</span>(<span class="hljs-string">&#x27;:id&#x27;</span>, <span class="hljs-variable">$id</span>, PDO::<span class="hljs-variable constant_">PARAM_INT</span>);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">fetch</span>(PDO::<span class="hljs-variable constant_">FETCH_ASSOC</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addRecipe</span>(<span class="hljs-params"><span class="hljs-variable">$data</span></span>) </span>{
+        <span class="hljs-variable">$stmt</span> = <span class="hljs-variable language_">$this</span>-&gt;pdo-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;INSERT INTO recipes (title, ingredients, instructions) VALUES (:title, :ingredients, :instructions)&quot;</span>);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bindParam</span>(<span class="hljs-string">&#x27;:title&#x27;</span>, <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;title&#x27;</span>]);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bindParam</span>(<span class="hljs-string">&#x27;:ingredients&#x27;</span>, <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;ingredients&#x27;</span>]);
+        <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">bindParam</span>(<span class="hljs-string">&#x27;:instructions&#x27;</span>, <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;instructions&#x27;</span>]);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">searchRecipes</span>(<span class="hljs-params"><span class="hljs-variable">$search</span></span>) </span>{
+        <span class="hljs-variable">$data</span> = [];
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$sql</span> = <span class="hljs-string">&quot;SELECT * FROM recipes WHERE title LIKE :search&quot;</span>;
+            <span class="hljs-variable">$stmh</span> = <span class="hljs-variable language_">$this</span>-&gt;pdo-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-variable">$searchTerm</span> = <span class="hljs-string">&#x27;%&#x27;</span> . <span class="hljs-variable">$search</span> . <span class="hljs-string">&#x27;%&#x27;</span>;
+            <span class="hljs-variable">$stmh</span>-&gt;<span class="hljs-title function_ invoke__">bindValue</span>(<span class="hljs-string">&#x27;:search&#x27;</span>, <span class="hljs-variable">$searchTerm</span>, PDO::<span class="hljs-variable constant_">PARAM_STR</span>);
+            <span class="hljs-variable">$stmh</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+            <span class="hljs-variable">$data</span> = <span class="hljs-variable">$stmh</span>-&gt;<span class="hljs-title function_ invoke__">fetchAll</span>(PDO::<span class="hljs-variable constant_">FETCH_ASSOC</span>);
+        } <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$Exception</span>) {
+            <span class="hljs-keyword">print</span> <span class="hljs-string">&quot;エラー：&quot;</span> . <span class="hljs-variable">$Exception</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$data</span>;
+    }
+}
+
+<span class="hljs-comment">// 設定情報の定義</span>
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_USER&quot;</span>, <span class="hljs-string">&quot;sample&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_PASS&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_HOST&quot;</span>, <span class="hljs-string">&quot;localhost&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_NAME&quot;</span>, <span class="hljs-string">&quot;sampledb&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DB_TYPE&quot;</span>, <span class="hljs-string">&quot;mysql&quot;</span>);
+<span class="hljs-title function_ invoke__">define</span>(<span class="hljs-string">&quot;_DSN&quot;</span>, _DB_TYPE . <span class="hljs-string">&quot;:host=&quot;</span> . _DB_HOST . <span class="hljs-string">&quot;;dbname=&quot;</span> . _DB_NAME . <span class="hljs-string">&quot;;charset=utf8&quot;</span>);
+
+<span class="hljs-comment">// インスタンス化とテスト</span>
+<span class="hljs-variable">$recipeManager</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RecipeManager</span>(_DSN, _DB_USER, _DB_PASS);
+
+<span class="hljs-comment">// 全てのレシピを取得</span>
+<span class="hljs-variable">$recipes</span> = <span class="hljs-variable">$recipeManager</span>-&gt;<span class="hljs-title function_ invoke__">getAllRecipes</span>();
+<span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$recipes</span>);
+
+<span class="hljs-comment">// IDでレシピを取得</span>
+<span class="hljs-variable">$recipe</span> = <span class="hljs-variable">$recipeManager</span>-&gt;<span class="hljs-title function_ invoke__">getRecipeById</span>(<span class="hljs-number">1</span>);
+<span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$recipe</span>);
+
+<span class="hljs-comment">// レシピを追加</span>
+<span class="hljs-variable">$newRecipe</span> = [
+    <span class="hljs-string">&#x27;title&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sample Recipe&#x27;</span>,
+    <span class="hljs-string">&#x27;ingredients&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sample Ingredients&#x27;</span>,
+    <span class="hljs-string">&#x27;instructions&#x27;</span> =&gt; <span class="hljs-string">&#x27;Sample Instructions&#x27;</span>
+];
+<span class="hljs-variable">$recipeManager</span>-&gt;<span class="hljs-title function_ invoke__">addRecipe</span>(<span class="hljs-variable">$newRecipe</span>);
+
+<span class="hljs-comment">// 検索</span>
+<span class="hljs-variable">$searchResults</span> = <span class="hljs-variable">$recipeManager</span>-&gt;<span class="hljs-title function_ invoke__">searchRecipes</span>(<span class="hljs-string">&#x27;Sample&#x27;</span>);
+<span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$searchResults</span>);
+<span class="hljs-meta">?&gt;</span>
+</code></pre>
+<p>このクラスは、以下の機能を提供する：</p>
+<ol>
+<li>全てのレシピを取得する</li>
+<li>IDで特定のレシピを取得する</li>
+<li>新しいレシピを追加する</li>
+<li>タイトルに基づいてレシピを検索する</li>
+</ol>
+<p>ターミナルでSQLスクリプトを実行した後、このPHPクラスを使用してデータベース操作を行う。</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

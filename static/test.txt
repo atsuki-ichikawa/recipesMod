@@ -1,0 +1,560 @@
+%%
+%% 研究報告用スイッチ
+%% [techrep]
+%%
+%% 欧文表記無しのスイッチ(etitle,eabstractは任意)
+%% [noauthor]
+%%
+
+%\documentclass[submit,techrep]{ipsj}
+\documentclass[submit,techrep,noauthor]{ipsj}
+
+
+
+\usepackage[dvips]{graphicx}
+\usepackage{latexsym}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{appendix}
+
+
+
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\|{\verb|}
+%
+
+%\setcounter{巻数}{59}%vol59=2018
+%\setcounter{号数}{10}
+%\setcounter{page}{1}
+
+
+\begin{document}
+
+
+\title{会員管理システム設計仕様書\\
+（2024年7月27日版）}
+
+
+
+
+
+\author{市川 淳貴}[joho.taro@ipsj.or.jp]
+
+
+
+
+%
+%\begin{jkeyword}
+%情報処理学会論文誌ジャーナル，\LaTeX，スタイルファイル，べからず集
+%\end{jkeyword}
+%
+%\begin{eabstract}
+%This document is a guide to prepare a draft for submitting to IPSJ
+%Journal, and the final camera-ready manuscript of a paper to appear in
+%IPSJ Journal, using {\LaTeX} and special style files.  Since this
+%document itself is produced with the style files, it will help you to
+%refer its source file which is distributed with the style files.
+%\end{eabstract}
+%
+%\begin{ekeyword}
+%IPSJ Journal, \LaTeX, style files, ``Dos and Dont's'' list
+%\end{ekeyword}
+
+\maketitle
+
+
+
+%1
+\section{機能概要}
+
+このアプリケーションは，料理の名称，材料，作成手順を共有することを目的として開発している．そのため，このアプリケーションには，ユーザーの知っている料理の名称，材料，作成手順を公開し共有する機能，他のユーザーが公開した料理の名称，材料，作成手順を閲覧する機能を備えている．また，すべてのユーザーが公開した料理の名称を一覧で表示できる機能，他のユーザーが公開した料理の名称を検索し，一覧で表示する機能も備えている．料理の名称を一覧で表示した際，その料理の詳細な情報（その料理の材料や作成手順）を一覧で表示した時の画面で対象の料理の名称をクリックするだけで詳細情報を閲覧するページに遷移する．また，ユーザーを認証するシステムも備えている．ユーザーを認証している場合に限り，料理の閲覧や共有を許可している．これにより質の高い料理の情報だけを収集できる．ユーザー管理には会員管理，システム管理，事前会員登録，各種設定とフォームを提供する等の複合的なシステムを備えている．以下に各機能の詳細を説明する．
+
+\subsection{ユーザー管理機能}
+
+ユーザー管理機能は，アプリケーションの利用者が適切にサービスを利用できるようにするための機能である．この機能には，以下のサブ機能が含まれる．
+
+\subsubsection{会員管理}
+
+会員管理機能は，自分のアカウントの登録，更新，削除を行うことができる．ユーザーは，会員登録フォームを通じて必要な情報を入力し，登録を行う．登録されたユーザーは，ログインしてアプリケーションの各種機能を利用することができる．
+
+\subsubsection{システム管理}
+
+システム管理機能は，アプリケーション全体の設定や運用に関する管理を行う機能である.この機能は任意のアカウントの一覧表示，削除を行うことができる．管理者は，検索フォームを通じて必要な情報を入力し，このアプリケーションに登録しているユーザーの検索,一覧表示ができる．また,その画面から管理者は，対象のユーザーのアプリケーションへのアプリケーション全体の設定や運用に関する管理を行う機能である．システム管理者は，これらの機能を通じてアプリケーションの運用を円滑に行うことができる．
+
+\subsubsection{事前会員登録}
+
+事前会員登録機能は，ユーザーが事前に登録申請を行い，管理者の承認を得てから正式に会員として登録される仕組みである．これにより，質の高いユーザーのみがアプリケーションを利用できるようになる．
+
+\subsubsection{各種設定とフォーム}
+
+各種設定とフォーム機能は，ユーザーが自身の情報を管理しやすくするための機能である．これには，プロフィール情報の更新，パスワード変更，通知設定の変更などが含まれる．ユーザーはこれらの設定を通じて，アプリケーションの利用を自分に合った形にカスタマイズすることができる．
+
+\subsection{レシピ管理機能}
+
+レシピ管理機能は，ユーザーが料理のレシピを投稿し，他のユーザーと共有するための機能である．この機能には，以下のサブ機能が含まれる．
+
+\subsubsection{レシピ投稿}
+
+レシピ投稿機能は，ユーザーが自身の知っている料理の名称，材料，作成手順を入力し，投稿することができる．投稿されたレシピは，他のユーザーが閲覧できるようになる．
+
+\subsubsection{レシピ閲覧}
+
+レシピ閲覧機能は，ユーザーが他のユーザーが投稿したレシピを閲覧するための機能である．ユーザーは，料理の名称，材料，作成手順を確認することができる．
+
+\subsubsection{レシピ検索}
+
+レシピ検索機能は，ユーザーが特定の料理の名称を検索し，該当するレシピを一覧表示するための機能である．検索結果から，ユーザーは興味のあるレシピの詳細情報を閲覧することができる．
+
+\subsubsection{レシピ一覧表示}
+
+レシピ一覧表示機能は，すべてのユーザーが公開した料理の名称を一覧で表示するための機能である．ユーザーは，一覧から興味のある料理の名称をクリックして，詳細情報を閲覧することができる．
+
+
+
+%2
+\section{利用技術}
+
+\subsection{CSS}
+本節は，CSS（Cascading Style Sheets）の技術概要および，その技術が私のアプリケーションにどのように適用されているかについて詳細にまとめたものである．CSSは，HTMLやXML文書の表示を制御するためのスタイルシート言語であり，ウェブデザインにおいて重要な役割を果たす．本節では，まずCSSの基本構造とその機能について概観し，その後，このアプリケーションにおける具体的なCSSの使用例を示す．
+
+\subsubsection{はじめに}
+Cascading Style Sheets（CSS）は，ウェブページの見た目やレイアウトを定義するためのスタイルシート言語である．CSSは，HTMLやXML文書の構造とは独立して，ページの外観を指定するために使用される．本章では，CSSの基本構造，セレクタ，プロパティ，値，カスケードと継承の概念，ボックスモデルなどの主要な要素について説明する．
+
+\subsubsection{CSSの基本構造}
+CSSの基本的な構造は，セレクタと宣言ブロックから構成される．セレクタはスタイルを適用するHTML要素を指定し，宣言ブロックは中括弧\{\}で囲まれたプロパティと値のペアを含む．また,セレクタは，CSSルールを適用する対象のHTML要素を指定するために使用される．最も一般的なセレクタには，要素セレクタ，クラスセレクタ，IDセレクタが含まれる．要素セレクタは特定のHTML要素を指定する．クラスセレクタはクラス属性を持つ要素を指定する．クラスセレクタはピリオド（.）で始まる．IDセレクタはID属性を持つ要素を指定する．IDセレクタはハッシュ記号（\#）で始まる．
+
+\subsubsection{プロパティと値}
+CSSプロパティは，スタイルを適用する特定の側面（例：色，フォントサイズ，マージン）を指定する．各プロパティには対応する値が設定される．例えば，colorプロパティには色の値（例：red，\#ff0000）が設定される.
+\subsubsection{カスケードと継承}
+CSSの名前の由来である「カスケード」は，複数のスタイルシートやルールが適用される場合の優先順位を意味する．優先順位は，インラインスタイル，IDセレクタ，クラスセレクタ，要素セレクタの順に高くなる．また，CSSでは，親要素のスタイルが子要素に継承されることもある．
+\subsubsection{ボックスモデル}
+CSSのボックスモデルは，要素の幅と高さを定義するための概念である．ボックスモデルは，コンテンツ，パディング，ボーダー，マージンの各領域から構成される．
+\subsubsection{このアプリケーションに使われているCSSの詳細技術}
+このアプリケーションは，料理レシピを共有するためのウェブアプリケーションであり，ユーザーがレシピを検索，投稿，および評価することができる．このアプリケーションでは，ユーザーインターフェースのスタイリングにCSSを使用している．アプリケーションのレイアウトは，主にフレックスボックスを使用して実現されている．フレックスボックスは，要素の配置を簡単にし，レスポンシブデザインをサポートするために利用されている.例えば，トップページでは，複数のアイコンが横並びに配置され，直感的な操作が出来るようレイアウトが調整されている.
+\paragraph{フォントとタイポグラフィ}
+このアプリケーションでは，複数のウェブフォントが使用されている．以下に主要なフォントを挙げる
+\begin{enumerate}
+\item[Inter : ] 主にヘッダーとフッターのアルファベットに使用しているフォントで，読みやすさとモダンな外観を提供する．
+\item[Kiwi Maru : ]柔らかく親しみやすいデザインのフォントで，ユーザーインターフェースの一部に使用している．
+\item[Hachi Maru Pop : ]ヘッダーに表示しているこのアプリケーションの名称を記載する際に使用している.よりカジュアルで親しみやすい印象を与えるフォントで，カタカナと漢字で構成されたこのアプリケーションの名称をより自然に表示している.
+\item[Baloo Bhaijaan-Regular : ]タイトルや見出しに使用しており，視覚的な強調を提供するフォント．全体的に線が太く柔らかい.
+\end{enumerate}
+
+\paragraph{ボックスモデルと影の表現}
+CSSのボックスモデルを活用して，各要素の配置やサイズを定義している．特に，ボックスやヘッダーには以下のような影の表現が用いられている.
+\begin{enumerate}
+\item[ボックスシャドウ : ] ボックスシャドウは，要素に立体感を与え，ページ内の要素を強調するために使用されている．例えば，ヘッダーであるナビゲーションバーやカード型レイアウトのボックスには，複数のレイヤーで構成されたシャドウが設定されている．これにより，リアルな陰影効果が生まれ，ユーザーインターフェース全体に深みを与えている．
+\item[インセットシャドウ : ] ボタン型,アイコン型のボックスに設定されている.内部に影を反対側には光が当っている表現をつけることで，要素にくぼみのような効果を出す．これにより，ボタンやインタラクティブな要素が視覚的に押しやすくなる．
+\end{enumerate}
+\paragraph{使用されている色合い}
+アプリケーション全体で使用されている色合いは，オレンジ色と白色を基調とした明るくフレンドリーなトーンが中心である．以下に主要な色を挙げる．
+\begin{enumerate}
+\item[背景色 : ] 白色（\#FFFFFF）を基調としており，明るくクリーンで見やすいデザインを実現している．
+\item[アクセントカラー : ]黄色（\#f2841e）やオレンジ（rgb(254, 139, 33)）などの鮮やかな色が，重要な要素やボタンに使用されている．これにより，ユーザーの注意を引きやすくしている.
+\item[影の色 : ] シャドウにはダークグレー（\#61350c）や反対に光が当たっている部分はライトイエロー（\#ffd332）などの微妙な色が使用されており，複数の影を重ねることで深みとリアル感を演出している．
+\end{enumerate}
+\paragraph{段落の名前}
+
+%2.1
+\subsection{PHP}
+
+
+本プロジェクトではPHP 7.4.33を使用する．
+
+
+%2.2
+\subsection{MariaDB/MySQL}
+
+
+本プロジェクトでは,データベースとしてMariaDB 10.4.27を使用している.
+
+
+
+
+
+
+%2.3
+\subsection{Smarty}
+
+
+\subsection*{Smartyテンプレートエンジンのバージョンと設定}
+このアプリケーションでは,Smartyテンプレートエンジンのバージョン3.1.30を使用している．
+
+
+
+
+
+
+%2.5
+\subsection{SMTP/IMAP/POP}
+会員管理システムから流用していため省略する．
+
+%3
+\section{システム設計}
+
+%3.1 
+\subsection{システム概要}
+
+本システムは，レシピ共有サイトを構築するためのウェブアプリケーションであり，会員登録，レシピの投稿，検索，閲覧機能を提供する．以下に主要な機能と設計思想を述べる．
+\subsubsection{アーキテクチャ}
+本システムは，MVC（Model-View-Controller）アーキテクチャに基づいて構築されている．これにより，ビジネスロジックとプレゼンテーションロジックを分離し，保守性と拡張性を高めている．各コンポーネントは以下の通りである．
+\begin{enumerate}
+  \item[Model : ] データベースとのやり取りを担当し，データの取得，保存，更新，削除を行う．具体的には，BaseModelクラスがデータベース接続を管理し，各種モデル（例：RecipeModel）が個別のデータ操作を実装する．
+  \item[View : ] ユーザインターフェースのレンダリングを担当する．Smartyテンプレートエンジンを用いて，動的にHTMLを生成する．
+  \item[Controller : ] ユーザからの入力を処理し，適切なModelとViewを呼び出す．例として，RecipeControllerはレシピに関する操作を管理し，ユーザのリクエストに応じて適切なアクションを実行する．
+\end{enumerate}
+\subsubsection{ユーザ管理}
+ユーザ管理は，Authクラスを中心に実装されている．セッション管理，パスワードのハッシュ化，認証情報の検証などを行う．MemberControllerクラスは，ユーザの登録，ログイン，情報更新，退会などの機能を提供する．管理者用の機能も提供されており，SystemControllerクラスがこれを担当する．
+\subsubsection{レシピ管理}
+RecipeControllerクラスは，レシピの投稿，検索，閲覧機能を提供する．ユーザがレシピを投稿する際に必要なデータ（タイトル，材料，手順など）を取得し，データベースに保存する．レシピの検索機能も実装されており，ユーザが指定したキーワードに基づいてデータベースからレシピを検索することができる．
+\subsubsection{画面遷移とテンプレートエンジン}
+Smartyテンプレートエンジンを使用して，画面遷移を管理している．各コントローラは，特定のアクションを実行後，適切なテンプレートファイルを使用してHTMLを生成する．これにより，プレゼンテーション層とビジネスロジック層の分離が実現されている．
+\subsubsection{セキュリティ}
+セキュリティに関しては，パスワードのハッシュ化やセッション管理を通じて対策を行っている．Authクラスは，パスワードをハッシュ化するためのメソッドを提供しており，認証時にパスワードの整合性を検証する．また，セッションハイジャックを防ぐため，セッションIDの再生成を行う．
+
+以上の設計により，本システムはレシピ共有サイトとしての基本機能を提供すると共に，拡張性と保守性を考慮した構造を持つ．ユーザは簡単にレシピを投稿，検索，閲覧することができ，管理者はサイト全体のユーザ管理を効率的に行うことが可能となっている．
+
+
+%3.2
+\subsection{画面遷移}
+本システムは，ユーザが直感的に操作できるように設計されており，各画面間の遷移は明確かつシンプルである．ユーザは，ホーム画面から各機能に容易にアクセスでき，必要な操作を迅速に行うことができるようになっている．また，管理者用の画面も用意されており，システムの運用が効率的に行える．これにより，レシピ共有サイトとしての機能を十分に果たすことが可能となっている．以下に，主要な画面遷移について述べる．
+\subsubsection{ホーム画面}
+ホーム画面（default.tpl）は，システムのエントリーポイントであり，ユーザが最初にアクセスする画面である．この画面には，主要な機能へのリンクが含まれており，ユーザは容易に目的の機能にアクセスできる．画面遷移は以下のようになる．
+\begin{enumerate}
+  \item [ナビゲーションリンク] : 
+    \begin{enumerate}
+        \item['HOME' : ]ホーム画面へのリンク．
+        \item [ GET関数 : ]tape=なし\&action=なし
+        \item['ACCOUNT' : ]ユーザのアカウント情報画面へのリンク．
+        \item[ GET関数 : ] tape=account\&action=なし
+        \item['RECIPE LIST' : ]レシピ一覧画面へのリンク．
+        \item [ GET関数 : ]tape=recipe\&action=list
+    \end{enumerate}
+  \item[アイコンのリンク]  : 
+    \begin{enumerate}
+        \item['icon-add' : ]レシピ投稿画面へのリンク．
+        \item[ GET関数 : ] tape=recipe\&action=add
+        \item['icon-list' : ]レシピ一覧画面へのリンク．
+        \item[ GET関数 : ] tape=recipe\&action=list
+        \item['icon-account' : ]ユーザのアカウント情報画面へのリンク．
+        \item[ GET関数 : ] tape=account\&action=なし
+    \end{enumerate}
+\end{enumerate}
+\subsubsection{レシピ一覧画面}
+レシピ一覧画面では，登録されたレシピの一覧を表示する．ユーザは一覧から各レシピの詳細な情報を表示する画面へ遷移できる．画面遷移は以下のようになる．
+\begin{enumerate}
+  \item [遷移] : 
+    \begin{enumerate}
+        \item[各レシピ詳細 : ]選択したレシピの詳細画面が表示される．
+        \item[ GET関数 : ] tape=なし\&action=なし
+        \item['HOME' : ]ホーム画面へのリンク．
+        \item[ GET関数 : ] tape=なし\&action=なし
+    \end{enumerate}
+\end{enumerate}
+\subsubsection{レシピ詳細画面}
+レシピ詳細画面は，レシピの一覧から遷移できる画面である．画面遷移は以下のようになる．
+\begin{enumerate}
+  \item [遷移] : 
+    \begin{enumerate}
+        \item[レシピ一覧に戻る : ]レシピ一覧画面へのリンク．選択したレシピの詳細画面から一覧に戻ることが出来る．
+        \item[ GET関数 : ]tape=なし\&action=なし
+        \item['HOME' : ]ホーム画面へのリンク．
+        \item[ GET関数 :  ] tape=なし\&action=なし
+    \end{enumerate}
+\end{enumerate}
+\subsubsection{会員管理システム関係の画面}
+会員トップ画面は会員管理システムのトップ画面と同じ画面であるため省略する．同様の理由からログイン画面，仮登録画面，管理者画面などの既存の画面を流用してるものは省略する．
+
+
+%3.3
+\subsection{データベース設計}
+本システムのレシピ管理機能は，データベースを活用してレシピの登録，検索，表示を行う．以下に，レシピデータベース設計の詳細を述べる．
+\subsubsection{データベーステーブル構成}
+本システムでは既存の会員管理システムのテーブルのほかにrecipesテーブルが新たに追加されている．recipesテーブルはレシピの基本情報を格納するテーブルである．recipesテーブルの構造は以下のようになっている．
+    \begin{enumerate}
+        \item[id : ]レシピの一意の識別子（主キー）
+        \item[title : ]レシピのタイトル
+        \item[ingredients : ]レシピの材料
+        \item[instructions :  ] レシピの作り方
+    \end{enumerate}
+\subsubsection{データベース操作}
+RecipeModelクラスは，データベース操作を行うためのメソッドを提供する．以下に主要なメソッドを説明する．
+    \begin{enumerate}
+        \item[getAllRecipes() : ]レシピの一意の識別子（主キー）
+        \item[getRecipeById(\$id) : ]指定されたIDのレシピを取得する．
+        \item[addRecipe(\$data) : ]新しいレシピをrecipesテーブルに追加する．
+        \item[searchRecipes(\$search) : ]指定されたキーワードでレシピを検索する．
+    \end{enumerate}
+
+
+\subsection{RecipeControllerクラス詳細}
+RecipeControllerクラスは，レシピに関する操作を管理するためのコントローラクラスであり，ユーザのリクエストに応じて適切なアクションを実行する．このクラスは，ユーザのリクエストに基づいてレシピの追加，表示，検索機能を提供し，認証状態に応じて適切なメニューを表示する役割を担っている．既存の会員管理システムのMemberControllerクラスを継承しており，一部の関数はオーバーライドすることで料理レシピ共有アプリケーションとして動作している．以下に，各関数の詳細を示す．
+\subsubsection{run関数}
+run関数は，セッションを開始し，ユーザの認証状態に応じてメニューを表示する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item Authクラスを用いてセッションを開始．
+  \item 認証情報が存在する場合はmenu\_member関数を，存在しない場合はmenu\_guest関数を呼び出す．
+\end{enumerate}
+
+\subsubsection{execute関数}
+execute関数は，ユーザー登録等の会員管理システムを使用せずレシピ共有だけの機能をデバックするための関数である．runと同様ユーザのリクエストに基づいてアクションを振り分ける役割を持つ．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item リクエスト変数typeとactionを取得
+  \item typeがrecipeの場合，handleRecipeActions関数を呼び出してアクションを実行．
+  \item それ以外の場合，showDefaultPage関数を呼び出してデフォルトページを表示．
+\end{enumerate}
+
+\subsubsection{menu\_member関数}
+menu\_member関数は，認証済みユーザ向けのメニューを表示する．この関数は以下の手順で動作する
+\begin{enumerate}
+  \item リクエスト変数typeとactionを取得．
+  \item typeに応じて，適切な画面表示関数（例：screen\_login, screen\_modify, screen\_delete, handleRecipeActionsなど）を呼び出す．
+\end{enumerate}
+
+\subsubsection{menu\_guest関数}
+menu\_guest関数は，未認証ユーザ向けのメニューを表示する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item リクエスト変数typeとactionを取得．
+  \item typeに応じて，適切な画面表示関数（例：screen\_regist, do\_authenticate, screen\_loginなど）を呼び出す．
+\end{enumerate}
+
+\subsubsection{screen\_login関数}
+screen\_login関数は，ログイン画面を表示する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item ログインフォームを生成．
+  \item titleに「ログイン画面」を設定．
+  \item next\_typeにauthenticateを設定．
+  \item fileにlogin.tplを設定し，画面を表示．
+\end{enumerate}
+
+
+\subsubsection{handleRecipeActions関数}
+handleRecipeActions関数は，レシピに関するアクションを処理する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item リクエスト変数actionを取得．
+  \item actionに応じて，適切なレシピ操作関数（例：addRecipe, viewRecipe, listRecipesなど）を呼び出す
+\end{enumerate}
+
+\subsubsection{addRecipe関数}
+addRecipe関数は，レシピを追加する画面を表示し，レシピの追加処理を行う．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item POSTリクエストの場合，フォームデータを取得．
+  \item 入力されたデータがすべて揃っている場合，RecipeModelを用いてデータベースにレシピを追加し，レシピ一覧画面にリダイレクト．
+  \item 入力データが不足している場合，エラーメッセージを設定し，追加画面を再表示．
+\end{enumerate}
+
+\subsubsection{viewRecipe関数}
+viewRecipe関数は，指定されたIDのレシピを表示する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item リクエスト変数idを取得．
+  \item RecipeModelを用いて，指定されたIDのレシピをデータベースから取得．
+  \item レシピが存在する場合，レシピ詳細画面を表示．
+  \item レシピが存在しない場合，エラーメッセージを表示．
+\end{enumerate}
+
+\subsubsection{listRecipes関数}
+listRecipes関数は，レシピの一覧を表示する．この関数は以下の手順で動作する
+\begin{enumerate}
+  \item 検索キーワードを取得し，セッション変数に保存．
+  \item RecipeModelを用いて，データベースからすべてのレシピ，または検索条件に一致するレシピを取得
+  \item レシピ一覧画面にレシピデータを渡して表示．
+\end{enumerate}
+
+\subsubsection{showDefaultPage関数}
+showDefaultPage関数は，デフォルトページを表示する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item Smartyテンプレートエンジンを用いて，default.tplテンプレートをレンダリングし，画面を表示．
+\end{enumerate}
+
+\subsection{RecipeModelクラス詳細}
+RecipeModelクラスは，レシピデータの管理を担当するモデルクラスであり，データベースとのやり取りを行う．このクラスは，レシピデータの取得，追加，検索，およびタグ処理を担当し，レシピ共有サイトのデータ管理を行う役割を担っている．以下に，各関数の詳細を示す．
+\subsubsection{getAllRecipes関数}
+getAllRecipes関数は，データベースからすべてのレシピを取得する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item SELECT \* FROM recipesというSQL文を準備し，実行する．
+  \item 実行結果を連想配列として取得し，返す．
+\end{enumerate}
+
+\subsubsection{getRecipeById関数}
+getRecipeById関数は，指定されたIDのレシピをデータベースから取得する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item SELECT \* FROM recipes WHERE id \= \:idというSQL文を準備し，実行する．
+  \item バインドパラメータ\:idに指定されたIDを設定する．
+  \item 実行結果を連想配列として取得し，返す．
+\end{enumerate}
+
+\subsubsection{addRecipe関数}
+addRecipe関数は，新しいレシピをデータベースに追加する．この関数は以下の手順で動作する
+\begin{enumerate}
+  \item INSERT INTO recipes (title, ingredients, instructions) VALUES (\:title, \:ingredients, \:instructions)というSQL文を準備し，実行する．
+  \item バインドパラメータ\:title，\:ingredients，\:instructionsにデータを設定する．
+  \item SQL文を実行し，成功した場合はtrueを返す．
+\end{enumerate}
+
+\subsubsection{searchRecipes関数}
+searchRecipes関数は，指定された検索キーワードに基づいてレシピを検索する．この関数は以下の手順で動作する．
+\begin{enumerate}
+  \item SELECT \* FROM recipes WHERE title LIKE \:searchというSQL文を準備し，実行する．
+  \item バインドパラメータ\:searchに検索キーワードを設定する（部分一致検索のため，\%で囲む）．
+  \item 実行結果を連想配列として取得し，返す．
+\end{enumerate}
+
+
+
+
+\subsection{各画面設計}
+本システムは，ユーザーが料理レシピを効率的に投稿，閲覧，検索できるように設計されている．各画面の詳細な設計について以下に述べる．
+
+\subsubsection{ホーム画面}
+ホーム画面は，ユーザーが主要な機能にアクセスするためのナビゲーションを提供する．この画面には，アカウント情報画面，レシピ一覧画面，レシピ投稿画面へのリンクが紐付いたボタン型のアイコンが含まれている．ヘッダーにはサイトの名称と主要メニュー項目が表示され，ユーザーが直感的にサイト内を移動できるよう設計されている．
+
+\subsubsection{レシピ一覧画面}
+レシピ一覧画面では，投稿された全てのレシピを一覧表示する．ユーザーはレシピタイトルをクリックすることで詳細画面にアクセスできる．検索機能も提供されており，特定のキーワードに基づいてレシピを検索することができる．この機能により，ユーザーは求めているレシピを迅速に見つけることができる．
+
+\subsubsection{レシピ詳細画面}
+レシピ詳細画面は，選択されたレシピの詳細情報を表示する．この画面では，レシピのタイトル，材料，作り方が表示される．ユーザーは，この画面を通じて具体的なレシピ内容を確認できる．
+
+\subsubsection{レシピ追加画面}
+レシピ追加画面では，ユーザーが新しいレシピを投稿するためのフォームを提供する．フォームには，レシピのタイトル，材料，作り方の入力欄が含まれており，ユーザーは必要な情報を入力してレシピを投稿することができる．投稿されたレシピは，データベースに保存され，レシピ一覧画面に表示される．
+
+\subsubsection{会員管理システム関係の画面}
+会員トップ画面，ログイン画面，仮登録画面，管理者画面などの画面は既存の会員管理システムの画面を流用しているため省略する．
+
+
+
+
+%4
+\section{実装}
+\label{config}
+
+
+
+
+%4.1
+\subsection{実装環境}
+
+この節では,アプリケーション開発に使用した環境について説明する.開発環境は,アプリケーションの開発プロセスと最終的なパフォーマンスに大きな影響を与える重要な要素である.
+
+開発に使用したハードウェアはMacBook Airであり,機種はMacBookAir10,1,チップはApple M1,コアの総数は8（パフォーマンス: 4,効率性: 4）,メモリは16 GBである.
+
+ソフトウェアにはmacOS Monterey ver12.6 (21G115)を使用した.
+
+開発ツールとしてはVisual Studio Code (VSCode)を使用し,機能豊富なコードエディタで,多数の拡張機能を利用した.サーバーにはXAMPPを使用し,クロスプラットフォームのApacheサーバー環境で,PHP,MySQL（MariaDB）,を含むパッケージである.ローカル開発環境として,アプリケーションの開発とテストを迅速化できる.
+
+その他のツールとしてはターミナルを使用し,コマンドライン操作を行うためのツールで,VSCode内蔵のターミナルも利用可能である.Gitコマンドやその他の開発用コマンドを実行するために使用する.
+
+設定とカスタマイズとしては,VSCodeの設定において必要な拡張機能（PHP Intelephense,Smartyテンプレートサポート）をインストールし,キーバインドやテーマをカスタマイズして開発効率を向上させる.XAMPPの設定においてはApacheとMySQLの設定を適切に行い,教科書の開発環境と同じになるよう調整する.
+
+
+\subsection{環境設定}
+
+プロジェクトのセットアップ手順や環境設定について説明する.以下の手順に従って,開発環境を構築し,プロジェクトをセットアップする.
+
+まず,必要なソフトウェアをインストールする.XAMPPは公式サイトから最新バージョンをダウンロードしてインストールし,インストール中にApacheとMySQLのコンポーネントを選択する.次に,Visual Studio Code (VSCode)を公式サイトからダウンロードしてインストールする.
+
+ターミナルを開き，以下のコマンドを実行してMariaDBに接続する．パスワードを求められたら，入力する．
+\begin{quote}
+mysql -u root -p
+\end{quote}
+接続が成功したら，以下のコマンドを実行してデータベースを作成する．
+\begin{quote}
+CREATE DATABASE sampledb CHARACTER SET utf8 COLLATE utf8\_general\_ci\;
+\end{quote}
+データベースにアクセスするためのユーザーを作成し，そのユーザーに適切な権限を付与する．
+\begin{quote}
+CREATE USER 'sample'\@'localhost' IDENTIFIED BY 'password';
+\end{quote}
+\begin{quote}
+GRANT ALL PRIVILEGES ON sampledb\.\* TO 'sample'\@'localhost';
+\end{quote}
+\begin{quote}
+FLUSH PRIVILEGES;
+\end{quote}
+次にrecipesテーブルを作成する．テーブルの構成は以下のように設定する．
+\begin{quote}
+CREATE TABLE recipes (
+    id INT AUTO\_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    ingredients TEXT NOT NULL,
+    instructions TEXT NOT NULL,
+    created\_at TIMESTAMP DEFAULT CURRENT\_TIMESTAMP
+);
+
+\end{quote}
+
+
+
+
+
+
+
+最後に,動作確認を行う.ブラウザで 
+\begin{quote}
+\|http://localhost/index.php|
+\end{quote}
+にアクセスし,アプリケーションが正常に動作するか確認する.
+
+
+\subsection{動作検証}
+
+この節では,システムの動作確認方法やテストケースについて説明し,具体的な動作確認手順を示す.
+
+まず,VSCodeの拡張機能を利用して動作確認を行う.PHP Intelephenseを利用してコードのシンタックスエラーや構文の問題をリアルタイムで検出し,Debugger for Chrome拡張機能を利用して,コードのステップ実行やブレークポイントを設定し,詳細なデバッグを行う.
+
+次に,Webブラウザからの動作確認を行う.ブラウザを開き,
+\begin{quote}
+\|http://localhost/your_project |
+\end{quote}
+にアクセスして,アプリケーションの各機能が正常に動作するか確認する.ブラウザの開発者ツールを使用して,ネットワークリクエスト,コンソールエラー,DOM操作も監視する.
+
+このように,VSCodeとWebブラウザを組み合わせた動作確認方法を用いることで,システムが正確に動作することを確かめることができる.これにより,潜在的な問題を発見し,修正することが可能となる.
+
+
+\section{まとめ}
+\subsection{プロジェクトのまとめ}
+
+本プロジェクトは，レシピ共有サイトの構築を目的として実施し，システム設計から実装に至るまでの一連のプロセスを通じて多くの成果を得た．システムはMVCアーキテクチャを採用し，レシピの投稿，検索，閲覧機能を実装した．これにより，ユーザは簡単にレシピを投稿し，他のユーザが投稿したレシピを検索，閲覧することが可能となった．RecipeControllerクラスがこれらの機能を担い，ユーザのリクエストに応じて適切な処理を実行する設計とした．
+
+ユーザ管理においては，Authクラスを中心にセッション管理やパスワードのハッシュ化を実装し，セキュアなユーザ認証を実現し，不正アクセスを防止する仕組みを理解した．また，MemberControllerクラスを通じて，ユーザの登録，ログイン，情報更新，退会といった機能を包括的に提供した．管理者向けの機能としては，SystemControllerクラスを流用し，サイト全体のユーザ管理を効率的に行えるようにした．管理者はユーザ情報の閲覧，修正，削除，登録を行うことができ，サイト運営に必要な管理機能を包括的に提供した．
+
+画面遷移管理にはSmartyテンプレートエンジンを採用し，ビジネスロジックとプレゼンテーションロジックの分離を図った．これにより，保守性と拡張性が向上し，デザイン変更や機能追加が容易に行える構造を実現した．セキュリティ対策として，パスワードのハッシュ化，セッション管理，入力データのバリデーションを徹底した．特に，パスワードのハッシュ化には強力なアルゴリズムを学び，セッションハイジャック防止のためにセッションIDの再生成を理解することが出来た．
+
+本プロジェクトを通じて，レシピ共有サイトの基本機能を網羅的に実装し，ユーザにとって使いやすく，管理者にとって運営しやすいシステムを構築した．今後の課題として，さらなる機能追加やユーザビリティの向上を検討し，セキュリティの強化やパフォーマンスの改善も継続的に行い，より高品質なサービス提供を目指す．
+
+\subsection{今後の展望}
+
+本システムでは，現在レシピの登録，検索，表示機能が実装されているが，タグを利用したレシピの分類や検索機能についてはまだ実装が完了していない(modelへは実装済み)．以下に，データベースを用いたタグ管理に関する正規化の考え方と，今後実装を進める手順について述べる．
+\subsubsection{タグ管理の正規化}
+タグ管理を効率的に行うためには，データベースの正規化が重要である．正規化により，データの冗長性を排除し，一貫性と整合性を保つことができる．多対多の関係により具体的には，以下のようなテーブル構造が望ましい
+\begin{enumerate}
+ \item [recipes]テーブル
+    \begin{enumerate}
+        \item[id : ]レシピの一意の識別子（主キー）
+        \item[title : ]レシピのタイトル
+        \item[ingredients : ]レシピの材料
+        \item[instructions :  ] レシピの作り方
+    \end{enumerate}
+\end{enumerate}
+\begin{enumerate}
+ \item [recipe\_tags]テーブル
+    \begin{enumerate}
+        \item[recipe\_id : ]レシピの識別子（外部キー）
+        \item[tag\_id : ]タグの識別子（外部キー）
+    \end{enumerate}
+\end{enumerate}
+\begin{enumerate}
+ \item [tags]テーブル
+    \begin{enumerate}
+        \item[id : ]タグの一意の識別子（主キー）
+        \item[name : ]タグの名前
+    \end{enumerate}
+\end{enumerate}
+これにより，レシピとタグの多対多の関係を管理し，個々のレシピに対して複数のタグを付与することが可能となる．
+
+
+
+
+
+\end{document}

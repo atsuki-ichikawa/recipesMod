@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x30ec;&#x30b7;&#x30d4;&#x5171;&#x6709;&#x30a2;&#x30d7;&#x30ea;&#x30b1;&#x30fc;&#x30b7;&#x30e7;&#x30f3; - README</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="レシピ共有アプリケーション---readme">レシピ共有アプリケーション - README</h1>
+<h2 id="概要">概要</h2>
+<p>このアプリケーションは、料理レシピを共有するためのウェブベースのプラットフォームです。ユーザーは登録、ログインしてレシピを管理することができる。また、レシピの検索、閲覧、新規追加機能も提供されている。アプリケーションはMVC（Model-View-Controller）アーキテクチャを採用しており、ビジネスロジックとプレゼンテーションロジックを分離することで、メンテナンス性と拡張性を高めている。</p>
+<h2 id="前提条件">前提条件</h2>
+<p>アプリケーションを実行する前に、以下がシステムにインストールされていることを確認してください。</p>
+<ul>
+<li>PHP（バージョン7.0以上）</li>
+<li>MySQL（または互換性のあるデータベース）</li>
+<li>ウェブサーバー（Apache、Nginxなど）</li>
+<li>Composer（PHPの依存管理ツール）</li>
+<li>Smarty（テンプレートエンジン）</li>
+<li>HTML_QuickForm2（フォーム処理ライブラリ）</li>
+</ul>
+<h2 id="インストール">インストール</h2>
+<p>以下の手順に従ってアプリケーションをセットアップします。</p>
+<h3 id="1-mariadbへの接続">1. MariaDBへの接続</h3>
+<p>ターミナルを開き、以下のコマンドを実行してMariaDBに接続する。パスワードを求められたら入力する。</p>
+<pre><code class="language-bash">mysql -u root -p
+</code></pre>
+<h3 id="2-データベースの作成">2. データベースの作成</h3>
+<p>接続が成功したら、以下のコマンドを実行してデータベースを作成する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> DATABASE sampledb <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8 <span class="hljs-keyword">COLLATE</span> utf8_general_ci;
+</code></pre>
+<h3 id="3-ユーザーの作成と権限の付与">3. ユーザーの作成と権限の付与</h3>
+<p>データベースにアクセスするためのユーザーを作成し、そのユーザーに適切な権限を付与する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;sample&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;password&#x27;</span>;
+<span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVILEGES <span class="hljs-keyword">ON</span> sampledb.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;sample&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;
+FLUSH PRIVILEGES;
+</code></pre>
+<h3 id="4-設定ファイルの確認と変更">4. 設定ファイルの確認と変更</h3>
+<p>XAMPPの設定ファイル（<code>php.ini</code>や<code>my.cnf</code>）を必要に応じて確認し、MariaDBが正しく動作するように設定する。通常、デフォルトの設定で問題ないが、<code>my.cnf</code>ファイルで<code>character-set-server</code>が<code>utf8</code>に設定されていることを確認する。</p>
+<h3 id="5-smartyを設定する">5. <strong>Smartyを設定する:</strong></h3>
+<pre><code>- 以下のディレクトリがウェブサーバーによって書き込み可能であることを確認する。
+    - `php_libs/smarty/templates_c/`
+    - `php_libs/smarty/cache/`
+- 必要に応じて、`init.php`ファイル内のSmartyディレクトリパスを更新する。
+</code></pre>
+<ol start="5">
+<li><strong>ウェブサーバーをセットアップする:</strong>
+<ul>
+<li>ウェブサーバーのドキュメントルートを<code>public</code>ディレクトリに設定する。</li>
+<li>クリーンURLのためにURLリライティングが有効になっていることを確認する（Apacheを使用している場合は<code>mod_rewrite</code>モジュールを有効にする）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ディレクトリ構成">ディレクトリ構成</h2>
+<p>以下のような構成になるようにファイルを設置してください。</p>
+<pre><code>
+
+├── htdocs
+│   ├── globals.css
+│   ├── img
+│   │   ├── arcticons-reciper.svg
+│   │   ├── group.png
+│   │   ├── mdi-account.svg
+│   │   ├── rectangle-21.svg
+│   │   └── vector.svg
+│   ├── index.php
+│   ├── index_member.php
+│   ├── js
+│   │   └── quickform.js
+│   ├── premember.php
+│   ├── static
+│   ├── style.css
+│   └── system.php
+│ 
+├── php_libs
+     ├── class
+     │   ├── Auth.php
+     │   ├── BaseController.php
+     │   ├── BaseModel.php
+     │   ├── KenController.php
+     │   ├── KenModel.php
+     │   ├── MemberController.php
+     │   ├── MemberModel.php
+     │   ├── PrememberController.php
+     │   ├── PrememberModel.php
+     │   ├── RecipeController.php
+     │   ├── RecipeModel.php
+     │   ├── SystemController.php
+     │   ├── SystemModel.php
+     │   
+     │      
+     │   
+     ├── init.php
+     └── smarty
+         ├── cache
+         ├── configs
+         │   └── test.conf
+         ├── libs
+         │   ├── Autoloader.php
+         │   ├── Smarty.class.php
+         │   ├── SmartyBC.class.php
+         │   ├── bootstrap.php
+         │   ├── debug.tpl
+         ├── templates
+         │   ├── default.tpl
+         │   ├── delete_form.tpl
+         │   ├── login.tpl
+         │   ├── member_top.tpl
+         │   ├── memberinfo_form.tpl
+         │   ├── message.tpl
+         │   ├── premember.tpl
+         │   ├── recipe_add.tpl
+         │   ├── recipe_list.tpl
+         │   ├── recipe_view.tpl
+         │   ├── system_list.tpl
+         │   ├── system_login.tpl
+         │   └── system_top.tpl
+         └── templates_c
+
+</code></pre>
+<h3 id="テーブル作成のsqlスクリプト">テーブル作成のSQLスクリプト</h3>
+<p>ターミナルでMariaDBに接続した状態で、以下のコマンドを実行することで、<code>recipes</code>テーブルを作成する。</p>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> recipes (
+    id <span class="hljs-type">INT</span> AUTO_INCREMENT <span class="hljs-keyword">PRIMARY</span> KEY,
+    title <span class="hljs-type">VARCHAR</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    ingredients TEXT <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    instructions TEXT <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span>,
+    created_at <span class="hljs-type">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-built_in">CURRENT_TIMESTAMP</span>
+);
+</code></pre>
+<p>また他のテーブルは会員管理システムと同様なので省略する</p>
+<h2 id="設定">設定</h2>
+<p>すべての設定は<code>php_libs</code>ディレクトリ内の<code>init.php</code>ファイルで行う。このファイルには、データベース接続、セッション名、Smartyディレクトリなどの設定が含まれている。</p>
+<h2 id="アプリケーションの実行">アプリケーションの実行</h2>
+<ol>
+<li>
+<p><strong>ウェブサーバーを起動する:</strong><br>
+ウェブサーバーが正しいドキュメントルートを指して起動していることを確認する。</p>
+</li>
+<li>
+<p><strong>アプリケーションにアクセスする:</strong><br>
+ウェブブラウザを開き、アプリケーションのURLに移動する（例：<code>http://localhost/index.php</code>）。</p>
+</li>
+<li>
+<p><strong>登録とログイン:</strong></p>
+<ul>
+<li>登録ページを使用して新しいアカウントを作成する。</li>
+<li>作成した資格情報でログインする。</li>
+<li>ログイン後、レシピの追加、閲覧、検索が可能になる。</li>
+</ul>
+</li>
+</ol>
+<h2 id="トラブルシューティング">トラブルシューティング</h2>
+<ul>
+<li>必要なPHP拡張がインストールされ、有効になっていることを確認する。</li>
+<li><code>init.php</code>ファイル内のデータベース接続設定を確認する。</li>
+<li>Smartyテンプレートディレクトリのファイルとディレクトリの権限を確認する。</li>
+<li>アプリケーションに関連するエラーがウェブサーバーログに記録されているか確認する。</li>
+</ul>
+
+            
+            
+        </body>
+        </html>
